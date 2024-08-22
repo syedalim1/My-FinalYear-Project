@@ -10,6 +10,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        SAy
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
