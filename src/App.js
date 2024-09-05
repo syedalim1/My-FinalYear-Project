@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import RegisterPage from "./RegisterPage";
-import HomePage from "./Homepage";
-import BusesPage from "./BusesPage";
-import MapPage from "./MapPage";
+import LoginPage from "./Component/LoginPage/LoginPage";
+import RegisterPage from "./Component/RegisterPage/RegisterPage";
+import HomePage from "./Component/Homepage/Homepage";
+import BusesPage from "./Component/BusesPage/BusesPage";
+import MapPage from "./Component/MapPage/MapPage";
 
 function App() {
   return (

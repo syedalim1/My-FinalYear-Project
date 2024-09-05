@@ -4,6 +4,11 @@ import { useLocation } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./MapPage.css";
 
+// Import default Leaflet icon styles
+import L from "leaflet";
+import "leaflet/dist/images/marker-icon.png";
+import "leaflet/dist/images/marker-shadow.png";
+
 function MapPage() {
   const location = useLocation();
   const buses = location.state ? location.state.buses : [];

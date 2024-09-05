@@ -1,6 +1,6 @@
 /* General Container */
 .home-container {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333;
   background-color: #f4f4f9;
   min-height: 100vh;
@@ -183,11 +183,11 @@
   .feature-card {
     width: 100%;
   }
-  
+
   .header .navbar ul {
     flex-direction: column;
   }
-  
+
   .header .navbar ul li {
     margin: 5px 0;
   }
