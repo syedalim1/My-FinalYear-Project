@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "City Express",
+    "route": "Downtown to Uptown",
+    "departureTime": "08:00 AM",
+    "arrivalTime": "09:00 AM",
+    "seats": 40,
+    "availableSeats": 15,
+    "price": 25
+  },
+  {
+    "id": 2,
+    "name": "Rapid Transit",
+    "route": "Central Station to Suburbs",
+    "departureTime": "09:30 AM",
+    "arrivalTime": "10:30 AM",
+    "seats": 30,
+    "availableSeats": 5,
+    "price": 20
+  },
+  {
+    "id": 3,
+    "name": "Luxury Line",
+    "route": "Airport to City Center",
+    "departureTime": "10:00 AM",
+    "arrivalTime": "11:30 AM",
+    "seats": 25,
+    "availableSeats": 10,
+    "price": 40
+  },
+  {
+    "id": 4,
+    "name": "Commuter Bus",
+    "route": "East Side to West Side",
+    "departureTime": "11:00 AM",
+    "arrivalTime": "12:00 PM",
+    "seats": 50,
+    "availableSeats": 20,
+    "price": 15
+  },
+  {
+    "id": 5,
+    "name": "Weekend Special",
+    "route": "City to Beach",
+    "departureTime": "12:00 PM",
+    "arrivalTime": "02:00 PM",
+    "seats": 45,
+    "availableSeats": 12,
+    "price": 30
+  }
+]

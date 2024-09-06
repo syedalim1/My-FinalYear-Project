@@ -17,6 +17,16 @@ const liveUpdatesData = [
   // Add more updates as needed
 ];
 
+const popularDestinationsData = [
+  { id: 1, city: "New York", description: "Frequent buses from all routes" },
+  {
+    id: 2,
+    city: "Los Angeles",
+    description: "Buses available throughout the day",
+  },
+  { id: 3, city: "Chicago", description: "Connects with all major cities" },
+];
+
 function HomePage() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -39,8 +49,9 @@ function HomePage() {
 
   return (
     <div className="home-container">
-      <Header/>
+      <Header />
 
+      {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
           <h1>Welcome to Bus Tracker</h1>
@@ -48,20 +59,24 @@ function HomePage() {
             Track your bus in real-time and manage your travel plans
             effortlessly.
           </p>
-          <Link to="/buses" className="btn-primary">
-            Explore Buses
+          {/* Central Button */}
+          <Link to="/buses" className="btn-primary center-btn">
+            Go to Buses Page
           </Link>
         </div>
       </section>
 
+      {/* Main Content */}
       <main className="main-content">
+        {/* Real-Time Tracking Section */}
         <section className="real-time-tracking">
           <h2>Real-Time Bus Tracking</h2>
-          <Link to="/track" className="tracking-btn">
+          <Link to="/map" className="tracking-btn">
             Track Nearby Buses
           </Link>
         </section>
 
+        {/* Route Planner Section */}
         <section className="route-planner">
           <h2>Plan Your Route</h2>
           <input
@@ -79,19 +94,20 @@ function HomePage() {
           <button onClick={handleSearch}>Search</button>
         </section>
 
-        <section className="featured-routes">
-          <h2>Featured Routes</h2>
-          {featuredRoutesData.map((route) => (
-            <div key={route.id} className="feature-card">
-              <h3>{route.route}</h3>
-              <p>{route.description}</p>
-              <Link to={route.link} className="btn-book-now">
-                Book Now
-              </Link>
-            </div>
-          ))}
+        {/* Popular Destinations Section */}
+        <section className="popular-destinations">
+          <h2>Popular Destinations</h2>
+          <div className="destinations-grid">
+            {popularDestinationsData.map((destination) => (
+              <div key={destination.id} className="destination-card">
+                <h3>{destination.city}</h3>
+                <p>{destination.description}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
+        {/* Live Updates Section */}
         <section className="live-updates">
           <h2>Live Updates</h2>
           {liveUpdatesData.map((update) => (
@@ -102,6 +118,7 @@ function HomePage() {
           ))}
         </section>
 
+        {/* Filter Buses Section */}
         <section className="bus-filters">
           <h2>Filter Buses</h2>
           <label htmlFor="bus-type">Bus Type</label>
@@ -128,6 +145,7 @@ function HomePage() {
           </select>
         </section>
 
+        {/* Testimonials Section */}
         <section className="testimonials">
           <h2>User Testimonials</h2>
           <div className="testimonial">
@@ -147,7 +165,7 @@ function HomePage() {
         </section>
       </main>
 
-     <Footer/>
+      <Footer />
     </div>
   );
 }

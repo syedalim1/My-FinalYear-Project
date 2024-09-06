@@ -12,8 +12,6 @@ const { Option } = Select;
 const BookingPage = () => {
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
-  const [seatLayout, setSeatLayout] = useState([]);
-  const [bookingSummary, setBookingSummary] = useState({});
   const [isBookingModalVisible, setIsBookingModalVisible] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [promoCode, setPromoCode] = useState("");
@@ -22,39 +20,34 @@ const BookingPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
 
   useEffect(() => {
-    // Fetch initial data
     fetchBuses();
     fetchReviews();
   }, []);
 
   const fetchBuses = async () => {
     try {
-      const response = await axios.get("/api/buses");
+      const response = await axios.get("/busData.json"); // Fetching JSON data from public folder
       setBuses(response.data);
     } catch (error) {
       console.error("Error fetching buses:", error);
     }
   };
+const fetchReviews = async () => {
+  try {
+    const response = await axios.get("/reviews.json"); // Adjust the path as necessary
+    setReviews(response.data);
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+  }
+};
 
-  const fetchReviews = async () => {
-    try {
-      const response = await axios.get("/api/reviews");
-      setReviews(response.data);
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-    }
-  };
 
   const handleSelectBus = (busId) => {
-    // Fetch seat layout for the selected bus
-    // Implement seat layout fetching logic
     setSelectedBus(busId);
     setIsBookingModalVisible(true);
   };
 
   const handleConfirmBooking = () => {
-    // Booking confirmation logic
-    // Implement booking API call
     notification.success({
       message: "Booking Confirmed",
       description: `Your booking for bus ${selectedBus} has been confirmed.`,
@@ -62,9 +55,11 @@ const BookingPage = () => {
     setIsBookingModalVisible(false);
   };
 
+  const selectedBusDetails = buses.find((bus) => bus.id === selectedBus);
+
   return (
     <div className="booking-page">
-        <Header/>
+      <Header />
       <Card title="Search for Buses">
         <Select
           style={{ width: "100%" }}
@@ -97,10 +92,20 @@ const BookingPage = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          {/* Example Marker, replace with dynamic markers as needed */}
-          <Marker position={[51.505, -0.09]}>
-            <Popup>A bus stop.</Popup>
-          </Marker>
+          {buses.map((bus) => {
+            // Ensure bus.location exists before accessing lat and lng
+            if (bus.location && bus.location.lat && bus.location.lng) {
+              return (
+                <Marker
+                  key={bus.id}
+                  position={[bus.location.lat, bus.location.lng]}
+                >
+                  <Popup>{bus.name}</Popup>
+                </Marker>
+              );
+            }
+            return null;
+          })}
         </MapContainer>
       </Card>
 
@@ -115,7 +120,6 @@ const BookingPage = () => {
         />
       </Card>
 
-      {/* Booking Modal */}
       <Modal
         title="Book Your Seat"
         visible={isBookingModalVisible}
@@ -124,7 +128,6 @@ const BookingPage = () => {
       >
         <div className="seat-selection">
           <h3>Select Seats</h3>
-          {/* Render seat layout here */}
           <div className="seat-layout">{/* Map out seats */}</div>
           <Input
             placeholder="Enter Promo Code"
@@ -140,9 +143,9 @@ const BookingPage = () => {
           </Button>
           <div className="booking-summary">
             <h4>Booking Summary:</h4>
-            <p>Selected Bus: {selectedBus}</p>
+            <p>Selected Bus: {selectedBusDetails?.name || "None"}</p>
             <p>Seats: {selectedSeats.join(", ")}</p>
-            <p>Total Price: {/* Calculate price */}</p>
+            <p>Total Price: {selectedBusDetails?.price || "0"}</p>
             <Select
               value={paymentMethod}
               onChange={(value) => setPaymentMethod(value)}
@@ -154,7 +157,7 @@ const BookingPage = () => {
           </div>
         </div>
       </Modal>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "busName": "City Express",
+    "rating": 4.5,
+    "review": "Comfortable and on time."
+  },
+  {
+    "id": "2",
+    "busName": "Suburban Shuttle",
+    "rating": 3.8,
+    "review": "Good service but a bit late."
+  },
+  {
+    "id": "3",
+    "busName": "Intercity Coach",
+    "rating": 4.2,
+    "review": "Nice experience, friendly staff."
+  },
+  {
+    "id": "1",
+    "busName": "City Express",
+    "rating": 4.5,
+    "review": "Comfortable and on time."
+  },
+  {
+    "id": "2",
+    "busName": "Suburban Shuttle",
+    "rating": 3.8,
+    "review": "Good service but a bit late."
+  },
+  {
+    "id": "3",
+    "busName": "Intercity Coach",
+    "rating": 4.2,
+    "review": "Nice experience, friendly staff."
+  },
+  {
+    "id": "1",
+    "busName": "City Express",
+    "rating": 4.5,
+    "review": "Comfortable and on time."
+  },
+  {
+    "id": "2",
+    "busName": "Suburban Shuttle",
+    "rating": 3.8,
+    "review": "Good service but a bit late."
+  },
+  {
+    "id": "3",
+    "busName": "Intercity Coach",
+    "rating": 4.2,
+    "review": "Nice experience, friendly staff."
+  }
+]

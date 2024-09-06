@@ -1,115 +1,61 @@
-/* Container for the entire page */
-.buses-container {
-  font-family: "Roboto", sans-serif;
-  color: #333;
-  background-color: #f4f4f9;
-  min-height: 100vh;
+.buses-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filters {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-/* Main content styling */
-.buses-main {
-  padding: 30px 20px;
+.ant-select {
+  background-color: #f0f0f0;
+  border-radius: 5px;
 }
 
-.buses-main h1 {
-  font-size: 32px;
-  margin-bottom: 30px;
-  color: #007bff;
+.ant-table-thead > tr > th {
+  background-color: #4CAF50;
+  color: white;
   text-align: center;
 }
 
-.buses-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+.ant-table-tbody > tr > td {
+  text-align: center;
 }
 
-.bus-card {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: calc(25% - 20px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+.ant-table-column-sorter {
+  color: #1890ff;
 }
 
-.bus-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.seat-layout {
+  padding: 10px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  margin-top: 10px;
 }
 
-.bus-card h2 {
-  font-size: 22px;
-  margin: 0 0 10px;
-  color: #007bff;
+.filter-section .ant-slider {
+  color: #1890ff;
 }
 
-.bus-card p {
-  margin: 10px 0;
-  line-height: 1.6;
-}
-
-.bus-card .status {
-  font-weight: bold;
-}
-
-.bus-card .status.on-time {
-  color: #28a745;
-}
-
-.bus-card .status.delayed {
-  color: #ffc107;
-}
-
-.bus-card .status.cancelled {
-  color: #dc3545;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  padding: 12px 18px;
-  border: none;
+.filter-section .ant-input-search {
   border-radius: 5px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  font-weight: 500;
-  transition: background-color 0.3s, transform 0.3s;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+.ant-btn-primary {
+  background-color: #ff5722;
+  border: none;
 }
 
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .bus-card {
-    width: calc(33.333% - 20px);
-  }
+.ant-btn-primary:hover {
+  background-color: #ff784e;
 }
 
-@media (max-width: 768px) {
-  .bus-card {
-    width: calc(50% - 20px);
-  }
-}
-
-@media (max-width: 480px) {
-  .bus-card {
-    width: 100%;
-  }
-
-  .buses-header .navbar ul {
-    flex-direction: column;
-  }
-
-  .buses-header .navbar ul li {
-    margin: 5px 0;
-  }
+.ant-tooltip-inner {
+  background-color: #ff5722;
 }
