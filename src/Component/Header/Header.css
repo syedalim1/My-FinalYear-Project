@@ -1,0 +1,133 @@
+/* General Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #007bff; /* Primary color for better visibility */
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative; /* Required for absolute positioning of mobile menu */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #ffc107; /* Highlight color */
+}
+
+/* Menu Toggle Styles */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1000; /* Ensure it is above other elements */
+}
+
+.menu-toggle div {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 6px 0;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+  display: none;
+  position: fixed; /* Fixed positioning to overlay on the screen */
+  top: 0;
+  right: 0;
+  background-color: #007bff;
+  width: 250px;
+  height: 100vh; /* Full viewport height */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 0 8px; /* Rounded bottom left corner */
+  z-index: 999; /* Ensure it is above other content */
+  overflow-y: auto; /* Scroll if content overflows */
+  transition: transform 0.3s ease;
+  transform: translateX(100%); /* Hidden by default */
+}
+
+.mobile-menu.active {
+  display: block;
+  transform: translateX(0); /* Show when active */
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-menu li {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-menu li:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block; /* Ensure full clickable area */
+}
+
+.mobile-menu a:hover {
+  background-color: #0056b3; /* Darker highlight */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 10px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .navbar a {
+    font-size: 14px;
+  }
+}

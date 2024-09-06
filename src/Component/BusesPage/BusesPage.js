@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./BusesPage.css";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 // Dummy data for buses
 const initialBuses = [
@@ -41,28 +43,7 @@ const BusesPage = () => {
 
   return (
     <div className="buses-container">
-      <header className="buses-header">
-        <div className="logo">Bus Tracker</div>
-        <nav className="navbar">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/buses">View Buses</Link>
-            </li>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
       <main className="buses-main">
         <h1>Available Buses</h1>
         <div className="search-container">
@@ -128,9 +109,7 @@ const BusesPage = () => {
           </>
         )}
       </main>
-      <footer className="buses-footer">
-        <p>© {new Date().getFullYear()} Syed Ali. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./RegisterPage.css";
+import Header from "../../Component/Header/Header";
 
 function RegisterPage() {
   const [name, setName] = useState("");
@@ -15,25 +16,7 @@ function RegisterPage() {
 
   return (
     <div className="register-container">
-      <header className="register-header">
-        <div className="logo">Bus Tracker</div>
-        <nav className="navbar">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/buses">View Buses</Link>
-            </li>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
       <main className="register-main">
         <div className="register-form-container">
           <h2>Register</h2>

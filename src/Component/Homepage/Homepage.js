@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Homepage.css";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 // Mock data for demonstration
 const featuredRoutesData = [
@@ -37,28 +39,7 @@ function HomePage() {
 
   return (
     <div className="home-container">
-      <header className="header">
-        <div className="logo">Bus Tracker</div>
-        <nav className="navbar">
-          <ul>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/buses">View Buses</Link>
-            </li>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-            <li>
-              <Link to="/driverdashboard">Driver Dashboard</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header/>
 
       <section className="hero">
         <div className="hero-content">
@@ -166,9 +147,7 @@ function HomePage() {
         </section>
       </main>
 
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} Syed Ali. All rights reserved.</p>
-      </footer>
+     <Footer/>
     </div>
   );
 }

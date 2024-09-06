@@ -1,0 +1,49 @@
+.admin-dashboard {
+  padding: 20px;
+  background-color: #f0f2f5;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dashboard-header .ant-btn {
+  margin-right: 10px;
+}
+
+.ant-card {
+  margin-bottom: 20px;
+}
+
+.ant-table {
+  margin-top: 20px;
+}
+
+.ant-modal {
+  top: 20px;
+}
+
+.ant-card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-default {
+  background-color: #fff;
+  border-color: #d9d9d9;
+}
+
+.ant-input-textarea {
+  resize: none;
+}
+
+.ant-select {
+  margin-bottom: 20px;
+}

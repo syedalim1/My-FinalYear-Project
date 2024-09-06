@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./MapPage.css";
+
 import {
   MapContainer,
   TileLayer,
@@ -11,6 +12,8 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 // Sample data for routes and buses
 const routes = [
@@ -107,7 +110,7 @@ const RouteManagement = () => {
             (end[1] - start[1]) *
               (bus.progress * routeLength - currentPosition);
 
-          const newProgress = (bus.progress + 0.005) % 1;
+          const newProgress = (bus.progress + 0.0001) % 1;
           return { ...bus, progress: newProgress, position: [lat, lng] };
         })
       );
@@ -161,18 +164,7 @@ const RouteManagement = () => {
 
   return (
     <div className="route-management">
-      <header className="buses-header">
-        <div className="logo">Bus Tracker</div>
-        <nav className="navbar">
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
-            <li><Link to="/buses">View Buses</Link></li>
-            <li><Link to="/map">Map</Link></li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
 
       <div className="route-content">
         <div className="route-list">
@@ -257,6 +249,7 @@ const RouteManagement = () => {
           <p>{trafficData ? trafficData : "Fetching traffic data..."}</p>
         </div> */}
       </div>
+      <Footer />
     </div>
   );
 };

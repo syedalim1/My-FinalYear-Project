@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
+import Header from "../../Component/Header/Header";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,25 +14,7 @@ function LoginPage() {
 
   return (
     <div className="login-container">
-      <header className="login-header">
-        <div className="logo">Bus Tracker</div>
-        <nav className="navbar">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/buses">View Buses</Link>
-            </li>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
       <main className="login-main">
         <div className="login-form-container">
           <h2>Login</h2>

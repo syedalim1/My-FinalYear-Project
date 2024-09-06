@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./Component/LoginPage/LoginPage";
-import RegisterPage from "./Component/RegisterPage/RegisterPage";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import HomePage from "./Component/Homepage/Homepage";
 import BusesPage from "./Component/BusesPage/BusesPage";
 import MapPage from "./Component/MapPage/MapPage";
-import DriverDashboard from "./Component/DriverDashboard/DriverDashboard";
+import AdminDashboard from "./Component/AdminDashboard/AdminDashboard";
+import BookingPage from "./Component/BookingPage/BookingPage";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/buses" element={<BusesPage />} />
         <Route path="/map" element={<MapPage />} />
-        <Route path="/driverdashboard" element={<DriverDashboard />} />
+        <Route path="/admindasboard" element={<AdminDashboard />} />
+        <Route path="/bookingpage" element={<BookingPage />} />
       </Routes>
     </Router>
   );

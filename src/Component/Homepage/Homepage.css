@@ -8,49 +8,9 @@
   flex-direction: column;
 }
 
-/* Header */
-.header {
-  background-color: #0056b3; /* Darker blue for a more professional look */
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.header .logo {
-  font-size: 32px;
-  font-weight: bold;
-}
-
-.header .navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.header .navbar ul li {
-  margin: 0 20px;
-}
-
-.header .navbar ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  transition: color 0.3s, text-shadow 0.3s;
-}
-
-.header .navbar ul li a:hover {
-  color: #ffd700; /* Golden color on hover */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
 /* Hero Section */
 .hero {
-  background-image: url('/public/bg.jpg'); /* Add your hero image */
+  background-image: url("../../assets/bg.jpg"); /* Add your hero image */
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -302,13 +262,4 @@
   margin: 0;
 }
 
-/* Footer */
-.footer {
-  background-color: #0056b3;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  position: relative; /* Changed from absolute to relative */
-  bottom: 0;
-  width: 100%;
-}
+
