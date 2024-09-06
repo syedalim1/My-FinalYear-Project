@@ -1,19 +1,17 @@
-/* BookingPage.css */
-
 /* General Styles */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
 }
 
 .booking-page {
-  padding: 20px;
+  padding-bottom: 10px;
 }
 
 .card {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .ant-card {
@@ -30,7 +28,6 @@ body {
 .ant-btn-primary {
   background-color: #1890ff;
   border-color: #1890ff;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .ant-btn-primary:hover {
@@ -76,41 +73,21 @@ body {
   cursor: not-allowed;
 }
 
-.seat.booked:hover {
-  transform: none;
-}
-
 /* Promo Code Input and Button */
-.promo-code-input {
-  display: flex;
-  margin: 20px 0;
+.promo-input {
+  margin-top: 10px;
 }
 
-.promo-code-input input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-right: 10px;
-  transition: border-color 0.3s ease;
+.promo-button {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #4caf50;
+  border-color: #4caf50;
+  color: #fff;
 }
 
-.promo-code-input input:focus {
-  border-color: #1890ff;
-}
-
-.promo-code-input button {
-  background-color: #1890ff;
-  border-color: #1890ff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.promo-code-input button:hover {
-  background-color: #40a9ff;
+.promo-button:hover {
+  background-color: #45a049;
 }
 
 /* Booking Summary */
@@ -121,23 +98,17 @@ body {
 .booking-summary h4 {
   font-weight: bold;
   margin-bottom: 10px;
+  color: #333;
 }
 
 .booking-summary p {
   margin: 5px 0;
+  color: #555;
 }
 
-.booking-summary select {
+.payment-method-select {
   width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
   margin-top: 10px;
-  transition: border-color 0.3s ease;
-}
-
-.booking-summary select:focus {
-  border-color: #1890ff;
 }
 
 /* Modal Styles */
@@ -147,24 +118,8 @@ body {
 }
 
 .ant-modal-header {
-  border-bottom: none;
-  border-radius: 8px 8px 0 0;
-  background-color: #fafafa;
-  padding: 16px;
   text-align: center;
-}
-
-.ant-modal-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.ant-modal-footer {
-  border-top: none;
-}
-
-.ant-modal-body {
-  padding: 20px;
+  background-color: #fafafa;
 }
 
 /* Map Styles */
@@ -173,16 +128,35 @@ body {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Button Hover Effect */
-.ant-btn:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s ease;
+/* Reviews Styles */
+.review-card {
+  background-color: #ffffff;
 }
 
-/* Smooth Scroll */
-html {
-  scroll-behavior: smooth;
+.review-card .ant-table {
+  background-color: #f9f9f9;
 }
+
+.review-card .ant-table-thead > tr > th {
+  background-color: #1890ff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.review-card .ant-table-tbody > tr > td {
+  background-color: #fff;
+  color: #555;
+}
+
+.review-card .ant-table-tbody > tr:nth-child(odd) > td {
+  background-color: #f1f1f1;
+}
+
+.review-card .ant-table-tbody > tr:hover > td {
+  background-color: #e6f7ff;
+}
+
+/* Mobile Styles */
 @media (max-width: 768px) {
   .seat-layout {
     grid-template-columns: repeat(4, 1fr);
@@ -192,35 +166,29 @@ html {
     width: 40px;
     height: 40px;
   }
-}
-.booking-page {
-  padding: 20px;
+
+  .search-card,
+  .map-card,
+  .review-card {
+    margin-bottom: 10px;
+  }
 }
 
-.booking-page .ant-card {
-  margin-bottom: 20px;
-}
+@media (max-width: 480px) {
+  .seat-layout {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-.booking-page .ant-card-title {
-  font-size: 24px;
-  color: #333;
-}
+  .seat {
+    width: 35px;
+    height: 35px;
+  }
 
-.booking-page .ant-table {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+  .booking-summary p {
+    font-size: 14px;
+  }
 
-.booking-page .ant-table-thead > tr > th {
-  background-color: #f5f5f5;
-  color: #333;
-}
-
-.booking-page .ant-table-tbody > tr > td {
-  padding: 12px;
-}
-
-.booking-page .ant-table-tbody > tr:nth-child(odd) {
-  background-color: #fafafa;
+  .payment-method-select {
+    font-size: 14px;
+  }
 }

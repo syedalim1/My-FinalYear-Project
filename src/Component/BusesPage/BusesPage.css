@@ -1,5 +1,5 @@
 .buses-page {
-  padding: 20px;
+  padding: 10px;
   background-color: #f9f9f9;
 }
 
@@ -9,42 +9,19 @@
 
 .filters {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column; /* Stack filters vertically for mobile */
+  align-items: stretch;
+  gap: 10px;
 }
 
-.ant-select {
-  background-color: #f0f0f0;
-  border-radius: 5px;
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  text-align: center;
 }
 
 .ant-table-thead > tr > th {
   background-color: #4CAF50;
   color: white;
-  text-align: center;
-}
-
-.ant-table-tbody > tr > td {
-  text-align: center;
-}
-
-.ant-table-column-sorter {
-  color: #1890ff;
-}
-
-.seat-layout {
-  padding: 10px;
-  background: #fff3cd;
-  border: 1px solid #ffeeba;
-  margin-top: 10px;
-}
-
-.filter-section .ant-slider {
-  color: #1890ff;
-}
-
-.filter-section .ant-input-search {
-  border-radius: 5px;
 }
 
 .ant-btn-primary {
@@ -56,6 +33,27 @@
   background-color: #ff784e;
 }
 
-.ant-tooltip-inner {
-  background-color: #ff5722;
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ant-select, .ant-input-search, .ant-slider {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .filters {
+    gap: 5px;
+  }
+
+  .ant-btn-primary {
+    width: 100%; /* Full width for buttons on mobile */
+  }
+
+  .ant-table {
+    font-size: 12px; /* Adjust table font size for smaller screens */
+  }
 }

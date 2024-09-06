@@ -19,7 +19,6 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/bookingpage" element={<BookingPage />} />
-      
       </Routes>
     </Router>
   );

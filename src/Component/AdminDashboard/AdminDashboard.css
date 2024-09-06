@@ -1,3 +1,4 @@
+/* Base styles */
 .admin-dashboard {
   padding: 20px;
   background-color: #f0f2f5;
@@ -5,12 +6,13 @@
 
 .dashboard-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-bottom: 20px;
 }
 
 .dashboard-header .ant-btn {
-  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .ant-card {
@@ -46,4 +48,37 @@
 
 .ant-select {
   margin-bottom: 20px;
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .dashboard-header .ant-btn {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .ant-card {
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  .ant-card-title {
+    font-size: 16px;
+  }
+
+  .ant-input-textarea {
+    width: 100%;
+  }
+
+  .ant-select {
+    width: 100%;
+  }
+
+  .ant-table {
+    font-size: 14px;
+  }
 }

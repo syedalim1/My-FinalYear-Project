@@ -11,8 +11,8 @@ import {
   Tag,
 } from "antd";
 import { StarOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
-import busData from "./busData.json"; // Import your JSON data
-import "./BusesPage.css"; // Custom CSS for colors and styling
+import busData from "./busData.json";
+import "./BusesPage.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
@@ -27,9 +27,8 @@ const BusesPage = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    // Simulate fetching data from an API
     setBuses(busData);
-    setFilteredBuses(busData); // Initialize the filtered buses as the entire list.
+    setFilteredBuses(busData); // Initialize with full bus list.
   }, []);
 
   const handleBusTypeChange = (value) => {
@@ -109,7 +108,7 @@ const BusesPage = () => {
           <div className="filters">
             <Select
               placeholder="Select Bus Type"
-              style={{ width: 200 }}
+              style={{ width: "100%" }}
               onChange={handleBusTypeChange}
             >
               <Option value="Luxury">Luxury</Option>
@@ -122,7 +121,7 @@ const BusesPage = () => {
               defaultValue={priceRange}
               max={5000}
               onChange={handlePriceChange}
-              style={{ width: "30%", marginLeft: 20 }}
+              style={{ width: "100%", marginTop: 20 }}
             />
 
             <Input.Search
@@ -133,12 +132,12 @@ const BusesPage = () => {
                 );
                 setFilteredBuses(filtered);
               }}
-              style={{ width: 200, marginLeft: 20 }}
+              style={{ width: "100%", marginTop: 20 }}
             />
 
             <Select
               placeholder="Sort Buses"
-              style={{ width: 150, marginLeft: 20 }}
+              style={{ width: "100%", marginTop: 20 }}
               onChange={handleSortChange}
             >
               <Option value="price">Price</Option>
@@ -209,6 +208,7 @@ const BusesPage = () => {
               ),
             },
           ]}
+          scroll={{ x: "100%" }} // Make the table scrollable horizontally for mobile
         />
       </div>
       <Footer />

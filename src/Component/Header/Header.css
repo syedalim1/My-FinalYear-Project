@@ -4,7 +4,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #007bff; /* Primary color for better visibility */
+  background-color: rgba(
+    255,
+    107,
+    107,
+    0.9
+  ); /* Primary color for better visibility */
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   position: relative; /* Required for absolute positioning of mobile menu */
@@ -13,6 +18,8 @@
 .logo {
   font-size: 24px;
   font-weight: bold;
+  color: white;
+  text-decoration: none;
 }
 
 .navbar {
@@ -65,7 +72,7 @@
   position: fixed; /* Fixed positioning to overlay on the screen */
   top: 0;
   right: 0;
-  background-color: #007bff;
+  background-color: rgba(255, 107, 107, 0.9);
   width: 250px;
   height: 100vh; /* Full viewport height */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);

@@ -9,7 +9,7 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add authentication logic here
+    // Add login logic here
   };
 
   return (

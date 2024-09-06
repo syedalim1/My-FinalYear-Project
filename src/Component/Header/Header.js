@@ -11,7 +11,9 @@ function Header() {
 
   return (
     <header className="header">
-      <div className="logo">Bus Tracker</div>
+      <Link to="/" className="logo">
+        Bus Tracker
+      </Link>
       <div className="menu-toggle" onClick={handleMenuToggle}>
         <div className={menuOpen ? "open" : ""}></div>
         <div className={menuOpen ? "open" : ""}></div>
@@ -19,19 +21,52 @@ function Header() {
       </div>
       <nav className="navbar">
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/buses">View Buses</Link></li>
-          <li><Link to="/map">Map</Link></li>
-         
-          <li><Link to="/admindashboard">Admin Dashboard</Link></li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/login">LOgin </Link>
+          </li>
+          <li>
+            <Link to="/buses">View Buses</Link>
+          </li>
+          <li>
+            <Link to="/map">Map</Link>
+          </li>
+          <li>
+            <Link to="/bookingpage">Booking Page </Link>
+          </li>
+
+          <li>
+            <Link to="/admindashboard">Admin Dashboard</Link>
+          </li>
         </ul>
       </nav>
       <div className={`mobile-menu ${menuOpen ? "active" : ""}`}>
         <ul>
-          <li><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></li>
-          <li><Link to="/buses" onClick={() => setMenuOpen(false)}>View Buses</Link></li>
-          <li><Link to="/map" onClick={() => setMenuOpen(false)}>Map</Link></li>
-          <li><Link to="/admindashboard" onClick={() => setMenuOpen(false)}>Admin Dashboard</Link></li>
+          <li>
+            <Link to="/login" onClick={() => setMenuOpen(false)}>
+              Login
+            </Link>
+          </li>
+          <li>
+            <Link to="/buses" onClick={() => setMenuOpen(false)}>
+              View Buses
+            </Link>
+          </li>
+          <li>
+            <Link to="/map" onClick={() => setMenuOpen(false)}>
+              Map
+            </Link>
+          </li>
+          <li>
+            <Link to="/admindashboard" onClick={() => setMenuOpen(false)}>
+              Admin Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/bookingpage">Booking Page </Link>
+          </li>
         </ul>
       </div>
     </header>
@@ -39,3 +74,4 @@ function Header() {
 }
 
 export default Header;
+

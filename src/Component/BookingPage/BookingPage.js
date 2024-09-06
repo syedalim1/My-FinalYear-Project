@@ -32,15 +32,15 @@ const BookingPage = () => {
       console.error("Error fetching buses:", error);
     }
   };
-const fetchReviews = async () => {
-  try {
-    const response = await axios.get("/reviews.json"); // Adjust the path as necessary
-    setReviews(response.data);
-  } catch (error) {
-    console.error("Error fetching reviews:", error);
-  }
-};
 
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get("/reviews.json"); // Adjust the path as necessary
+      setReviews(response.data);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
 
   const handleSelectBus = (busId) => {
     setSelectedBus(busId);
@@ -60,7 +60,7 @@ const fetchReviews = async () => {
   return (
     <div className="booking-page">
       <Header />
-      <Card title="Search for Buses">
+      <Card title="Search for Buses" className="search-card">
         <Select
           style={{ width: "100%" }}
           placeholder="Select a bus"
@@ -82,18 +82,17 @@ const fetchReviews = async () => {
         </Button>
       </Card>
 
-      <Card title="Bus Route Map">
+      <Card title="Bus Route Map" className="map-card">
         <MapContainer
           center={[51.505, -0.09]}
           zoom={13}
-          style={{ height: "500px", width: "100%" }}
+          style={{ height: "400px", width: "100%" }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           {buses.map((bus) => {
-            // Ensure bus.location exists before accessing lat and lng
             if (bus.location && bus.location.lat && bus.location.lng) {
               return (
                 <Marker
@@ -109,7 +108,7 @@ const fetchReviews = async () => {
         </MapContainer>
       </Card>
 
-      <Card title="User Reviews">
+      <Card title="User Reviews" className="review-card">
         <Table
           dataSource={reviews}
           columns={[
@@ -117,6 +116,8 @@ const fetchReviews = async () => {
             { title: "Rating", dataIndex: "rating", key: "rating" },
             { title: "Review", dataIndex: "review", key: "review" },
           ]}
+          pagination={false}
+          scroll={{ x: true }} // Enable horizontal scrolling on mobile
         />
       </Card>
 
@@ -128,16 +129,18 @@ const fetchReviews = async () => {
       >
         <div className="seat-selection">
           <h3>Select Seats</h3>
-          <div className="seat-layout">{/* Map out seats */}</div>
+          <div className="seat-layout">{/* Seat layout logic here */}</div>
           <Input
             placeholder="Enter Promo Code"
             value={promoCode}
             onChange={(e) => setPromoCode(e.target.value)}
+            className="promo-input"
           />
           <Button
             onClick={() => {
               /* Apply promo code logic */
             }}
+            className="promo-button"
           >
             Apply
           </Button>
@@ -149,6 +152,7 @@ const fetchReviews = async () => {
             <Select
               value={paymentMethod}
               onChange={(value) => setPaymentMethod(value)}
+              className="payment-method-select"
             >
               <Option value="card">Credit/Debit Card</Option>
               <Option value="wallet">E-Wallet</Option>
