@@ -1,257 +1,172 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  Polyline,
+  InfoWindow,
+} from "@react-google-maps/api";
+import Header from "../shared/Header";
+import Footer from "../shared/Footer";
 import "./MapPage.css";
 
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline,
-  useMap,
-} from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+const containerStyle = {
+  width: "100%",
+  height: "500px",
+};
 
-// Sample data for routes and buses
+// Dummy route and bus data
 const routes = [
   {
     id: 1,
     name: "Route 1",
     path: [
-      [28.7041, 77.1025],
-      [28.7041, 77.2125],
+      { lat: 28.7041, lng: 77.1025 },
+      { lat: 28.7041, lng: 77.2125 },
     ],
   },
   {
     id: 2,
     name: "Route 2",
     path: [
-      [28.7041, 77.1025],
-      [28.7941, 77.1025],
+      { lat: 28.7041, lng: 77.1025 },
+      { lat: 28.7941, lng: 77.1025 },
     ],
   },
   {
     id: 3,
     name: "Route 3",
     path: [
-      [28.7041, 77.1025],
-      [28.7041, 77.3025],
+      { lat: 28.7041, lng: 77.1025 },
+      { lat: 28.7041, lng: 77.3025 },
     ],
   },
 ];
 
-const initialBuses = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  routeId: (i % routes.length) + 1,
-  progress: Math.random(),
-  state: ["Running", "Stopped", "Delayed"][Math.floor(Math.random() * 3)],
-  driver: `Driver ${i + 1}`,
-  busNumber: `Bus-${i + 1}`,
-  contact: `123-456-${i + 1}`,
-  eta: Math.floor(Math.random() * 30), // ETA in minutes
-}));
+// Dummy bus data
+const busPositions = [
+  {
+    id: 1,
+    busNumber: "Bus 101",
+    position: { lat: 28.7041, lng: 77.1025 },
+    state: "Running",
+    eta: 5,
+    driver: "John",
+  },
+  {
+    id: 2,
+    busNumber: "Bus 202",
+    position: { lat: 28.7041, lng: 77.2125 },
+    state: "Delayed",
+    eta: 10,
+    driver: "Steve",
+  },
+];
 
-const RouteManagement = () => {
+const MapPage = () => {
   const [selectedRoute, setSelectedRoute] = useState(null);
-  const [busPositions, setBusPositions] = useState(initialBuses);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterStatus, setFilterStatus] = useState("All");
-  const [trafficData, setTrafficData] = useState(null); // For traffic conditions
-  const [notifications, setNotifications] = useState([]);
-  const intervalRef = useRef(null);
+  const [selectedBus, setSelectedBus] = useState(null);
 
-  const handleRouteClick = (route) => setSelectedRoute(route);
+  const handleRouteClick = (route) => {
+    setSelectedRoute(route);
+  };
 
   const getBusIcon = (state) => {
-    let iconUrl;
     switch (state) {
       case "Running":
-        iconUrl = "/green-bus-icon.png";
-        break;
-      case "Stopped":
-        iconUrl = "/red-bus-icon.png";
-        break;
+        return "/green-bus-icon.png";
       case "Delayed":
-        iconUrl = "/yellow-bus-icon.png";
-        break;
+        return "/yellow-bus-icon.png";
       default:
-        iconUrl = "/blue-bus-icon.png";
+        return "/red-bus-icon.png";
     }
-    return new L.Icon({
-      iconUrl,
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32],
-    });
-  };
-
-  useEffect(() => {
-    const animateBuses = () => {
-      setBusPositions((prevBuses) =>
-        prevBuses.map((bus) => {
-          const route = routes.find((r) => r.id === bus.routeId);
-          if (!route || !route.path.length) return bus;
-
-          const routeLength = route.path.length;
-          const currentPosition = Math.floor(bus.progress * routeLength);
-          const nextPosition = (currentPosition + 1) % routeLength;
-
-          const start = route.path[currentPosition];
-          const end = route.path[nextPosition];
-          const lat =
-            start[0] +
-            (end[0] - start[0]) *
-              (bus.progress * routeLength - currentPosition);
-          const lng =
-            start[1] +
-            (end[1] - start[1]) *
-              (bus.progress * routeLength - currentPosition);
-
-          const newProgress = (bus.progress + 0.0001) % 1;
-          return { ...bus, progress: newProgress, position: [lat, lng] };
-        })
-      );
-    };
-    intervalRef.current = setInterval(animateBuses, 100);
-    return () => clearInterval(intervalRef.current);
-  }, []);
-
-  useEffect(() => {
-    // Simulate fetching traffic data
-    const fetchTrafficData = () => {
-      // Fetch traffic data from an API or service
-      // setTrafficData(data);
-    };
-
-    fetchTrafficData();
-  }, []);
-
-  useEffect(() => {
-    // Simulate notifications
-    const fetchNotifications = () => {
-      // Fetch notifications from an API or service
-      // setNotifications(notifications);
-    };
-
-    fetchNotifications();
-  }, []);
-
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value.toLowerCase());
-  };
-
-  const handleStatusChange = (e) => {
-    setFilterStatus(e.target.value);
-  };
-
-  const filteredRoutes = routes.filter((route) =>
-    route.name.toLowerCase().includes(searchQuery)
-  );
-
-  const MapUpdater = () => {
-    const map = useMap();
-    useEffect(() => {
-      if (selectedRoute) {
-        map.setView(selectedRoute.path[0], 13);
-      }
-    }, [selectedRoute, map]);
-
-    return null;
   };
 
   return (
-    <div className="route-management">
+    <div className="map-page">
       <Header />
-
-      <div className="route-content">
+      <div className="map-container">
         <div className="route-list">
-          <h3>Active Routes</h3>
-          <input
-            type="text"
-            placeholder="Search Routes..."
-            onChange={handleSearch}
-          />
+          <h3>Select a Route</h3>
           <ul>
-            {filteredRoutes.map((route) => (
+            {routes.map((route) => (
               <li key={route.id} onClick={() => handleRouteClick(route)}>
                 {route.name}
               </li>
             ))}
           </ul>
-          <div className="filter-section">
-            <label>Filter Buses by Status:</label>
-            <select onChange={handleStatusChange} value={filterStatus}>
-              <option value="All">All</option>
-              <option value="Running">Running</option>
-              <option value="Stopped">Stopped</option>
-              <option value="Delayed">Delayed</option>
-            </select>
-          </div>
         </div>
 
-        <div className="route-map">
-          <MapContainer
-            center={[28.7041, 77.1025]}
-            zoom={13}
-            style={{ height: "500px", width: "100%" }}
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {routes.map((route) => (
-              <Polyline
-                key={route.id}
-                positions={route.path}
-                color={selectedRoute?.id === route.id ? "red" : "gray"}
-              />
-            ))}
-            {busPositions
-              .filter(
-                (bus) =>
-                  bus.routeId === selectedRoute?.id &&
-                  (filterStatus === "All" || bus.state === filterStatus)
-              )
-              .map((bus) => (
-                <Marker
-                  key={bus.id}
-                  position={bus.position}
-                  icon={getBusIcon(bus.state)}
+        <div className="map-area">
+          <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+            {" "}
+            {/* Add your Google Maps API key */}
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={
+                selectedRoute
+                  ? selectedRoute.path[0]
+                  : { lat: 28.7041, lng: 77.1025 }
+              }
+              zoom={13}
+              options={{
+                disableDefaultUI: true,
+                zoomControl: true,
+                styles: [
+                  { featureType: "poi", stylers: [{ visibility: "off" }] },
+                ],
+              }}
+            >
+              {/* Draw Routes */}
+              {selectedRoute && (
+                <Polyline
+                  path={selectedRoute.path}
+                  options={{
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                  }}
+                />
+              )}
+
+              {/* Show Bus Markers */}
+              {busPositions
+                .filter(
+                  (bus) => selectedRoute && bus.routeId === selectedRoute.id
+                )
+                .map((bus) => (
+                  <Marker
+                    key={bus.id}
+                    position={bus.position}
+                    icon={{
+                      url: getBusIcon(bus.state),
+                      scaledSize: new window.google.maps.Size(32, 32),
+                    }}
+                    onClick={() => setSelectedBus(bus)}
+                  />
+                ))}
+
+              {/* Bus InfoWindow */}
+              {selectedBus && (
+                <InfoWindow
+                  position={selectedBus.position}
+                  onCloseClick={() => setSelectedBus(null)}
                 >
-                  <Popup>
-                    <h3>Bus {bus.id}</h3>
-                    <p>Route: Route {bus.routeId}</p>
-                    <p>Status: {bus.state}</p>
-                    <p>Driver: {bus.driver}</p>
-                    <p>Bus Number: {bus.busNumber}</p>
-                    <p>Contact: {bus.contact}</p>
-                    <p>ETA: {bus.eta} minutes</p>
-                  </Popup>
-                </Marker>
-              ))}
-            <MapUpdater />
-          </MapContainer>
+                  <div>
+                    <h3>{selectedBus.busNumber}</h3>
+                    <p>Status: {selectedBus.state}</p>
+                    <p>Driver: {selectedBus.driver}</p>
+                    <p>ETA: {selectedBus.eta} minutes</p>
+                  </div>
+                </InfoWindow>
+              )}
+            </GoogleMap>
+          </LoadScript>
         </div>
-
-        {/* Notifications */}
-        {/* <div className="notifications">
-          <h3>Notifications</h3>
-          <ul>
-            {notifications.map((notif, index) => (
-              <li key={index}>{notif}</li>
-            ))}
-          </ul>
-        </div> */}
-
-        {/* Traffic Conditions */}
-        {/* <div className="traffic-conditions">
-          <h3>Traffic Conditions</h3>
-          <p>{trafficData ? trafficData : "Fetching traffic data..."}</p>
-        </div> */}
       </div>
       <Footer />
     </div>
   );
 };
 
-export default RouteManagement;
+export default MapPage;

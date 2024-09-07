@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./Pages/LoginPage/LoginPage";
-import RegisterPage from "./Pages/RegisterPage/RegisterPage";
-import HomePage from "./Component/Homepage/Homepage";
-import BusesPage from "./Component/BusesPage/BusesPage";
+import LoginPage from "./Pages/LoginPage";
+import RegisterPage from "./Pages/RegisterPage";
+import HomePage from "./Pages/Homepage";
+import BusesPage from "./Pages/BusesPage";
 import MapPage from "./Component/MapPage/MapPage";
-import AdminDashboard from "./Component/AdminDashboard/AdminDashboard";
-import BookingPage from "./Component/BookingPage/BookingPage";
+import AdminDashboard from "./Component/admin/AdminDashboard";
+import BookingPage from "./Component/booking/BookingPage";
 
 function App() {
   return (

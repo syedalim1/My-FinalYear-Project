@@ -1,0 +1,261 @@
+/* General Container */
+.home-container {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  background-color: #f4f4f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero {
+  background-image: url("../../public/bg.jpg"); /* Update the path to your new background image */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect for background */
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+/* Adding a dark overlay for better contrast */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: -1;
+}
+
+
+.hero-content h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Make the text stand out */
+}
+
+.hero-content p {
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+.hero-content .btn-primary {
+  background-color: #ffd700; /* Bright golden color */
+  color: #000;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 8px;
+  font-size: 22px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.hero-content .btn-primary:hover {
+  background-color: #e0a800;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Adding a hover effect */
+}
+
+/* Rest of the content styling */
+.main-content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Real-Time Tracking Section */
+.real-time-tracking {
+  text-align: center;
+}
+
+.real-time-tracking h2 {
+  font-size: 32px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.real-time-tracking .tracking-btn {
+  background-color: #17a2b8;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+}
+.real-time-tracking .tracking-btn:hover {
+  background-color: #138496;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Route Planner Section */
+.route-planner {
+  text-align: center;
+}
+
+.route-planner h2 {
+  font-size: 32px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.route-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.route-planner input {
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 200px;
+}
+
+.route-planner .btn-search {
+  background-color: #ffc107;
+  color: #000;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.route-planner .btn-search:hover {
+  background-color: #e0a800;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Popular Destinations Section */
+.popular-destinations {
+  text-align: center;
+}
+
+.destinations-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.destination-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: calc(33% - 40px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.destination-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.destination-card h3 {
+  font-size: 24px;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+.destination-card p {
+  color: #555;
+}
+
+/* Live Updates Section */
+.live-updates {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.live-updates h2 {
+  font-size: 32px;
+  color: #dc3545;
+  margin-bottom: 20px;
+}
+
+.update-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonials Section */
+.testimonials {
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 32px;
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.testimonial {
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.testimonial p {
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 36px;
+  }
+
+  .route-inputs {
+    flex-direction: column;
+  }
+
+  .destination-card {
+    width: calc(50% - 20px);
+  }
+  .real-time-tracking h2 {
+    font-size: 24px;
+  }
+.hero-content .btn-primary {
+    padding: 12px 28px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .destination-card {
+    width: 100%;
+  }
+
+  .route-inputs input {
+    width: 100%;
+  }
+}

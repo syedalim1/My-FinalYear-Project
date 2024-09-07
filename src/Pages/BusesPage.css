@@ -1,0 +1,78 @@
+.buses-page {
+  padding: 10px;
+  background-color: #f9f9f9;
+  min-height: 100vh; /* Ensure full height for content */
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  text-align: center;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.ant-btn-primary {
+  background-color: #ff5722;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.ant-btn-primary:hover {
+  background-color: #ff784e;
+}
+
+.ant-tag-volcano {
+  background-color: #ff7875;
+  color: white;
+}
+
+.ant-tag-green {
+  background-color: #a0d911;
+  color: white;
+}
+
+.ant-checkbox-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .ant-select,
+  .ant-input-search,
+  .ant-slider {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .filters {
+    gap: 5px;
+  }
+
+  .ant-btn-primary {
+    width: 100%;
+  }
+
+  .ant-table {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,212 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fecfef);
+  color: #333;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.register-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 2rem;
+  background-image: url("../../public/bg.jpg"); /* Change this URL to your background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.register-form-container {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Semi-transparent background for form */
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.register-form-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffcccb; /* Pinkish color for text */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Form Fields */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.85rem;
+  border: 2px solid rgba(255, 107, 107, 0.8); /* Soft border */
+  border-radius: 10px; /* Rounded inputs */
+  font-size: 1rem;
+  color: #333;
+  background-color: #fff; /* White background for input */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.form-group input:focus {
+  border-color: #ff6f61;
+  box-shadow: 0 0 5px rgba(255, 107, 107, 0.8);
+}
+
+/* Password Input with Toggle */
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 00px; /* Space for eye icon */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #ffcccb;
+  transition: color 0.3s ease;
+}
+
+.password-toggle.visible {
+  color: #ff6f61;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #007bff; /* Blue button */
+  color: white;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 1rem;
+  width: 100%; /* Full width for button */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Register Link */
+.login-link {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.login-link a {
+  color: #ffcccb;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #ffe6e6;
+}
+
+/* Footer */
+.register-footer {
+  background-color: rgba(255, 107, 107, 0.9);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+}
+
+/* Responsive Styling for Tablets and Smaller Screens */
+@media (max-width: 768px) {
+  .register-form-container {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .form-group input {
+    padding: 1rem;
+    font-size: 1.2rem; /* Larger font for better readability */
+  }
+
+  .password-toggle {
+    font-size: 1.5rem; /* Bigger eye icon */
+    right: 10px;
+    bottom: 35px;
+  }
+
+  .btn-primary {
+    padding: 0.9rem 1.2rem;
+    font-size: 1.2rem; /* Bigger button text for easier tapping */
+  }
+
+  .register-footer {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Responsive Styling for Mobile Phones */
+@media (max-width: 480px) {
+  .register-main {
+    padding: 1.5rem;
+  }
+
+  .register-form-container {
+    padding: 1.2rem;
+    max-width: 90%; /* Ensure the form container scales properly */
+  }
+
+  .form-group input {
+    padding: 1rem; /* Larger padding for better tap targets */
+    font-size: 1.2rem;
+  }
+
+  .password-toggle {
+    font-size: 1.5rem;
+    right: 10px;
+  }
+
+  .btn-primary {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .register-footer {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+}
