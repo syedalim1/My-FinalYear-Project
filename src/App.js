@@ -7,6 +7,7 @@ import BusesPage from "./Pages/BusesPage";
 import MapPage from "./Component/MapPage/MapPage";
 import AdminDashboard from "./Component/admin/AdminDashboard";
 import BookingPage from "./Component/booking/BookingPage";
+import BookingForm from "./Component/booking/BookingForm";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/bookingpage" element={<BookingPage />} />
+        <Route path="/Bookingform" element={<BookingForm />} />
       </Routes>
     </Router>
   );

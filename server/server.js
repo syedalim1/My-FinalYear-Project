@@ -1,36 +1,72 @@
+// const express = require("express");
+// const cors = require("cors");
+// const mongoose = require("mongoose");
+// const dotenv = require("dotenv");
+
+// // Load environment variables
+// dotenv.config();
+
+// const app = express();
+// app.use(cors());
+// app.use(express.json());
+
+// // MongoDB connection
+// mongoose
+//   .connect(process.env.MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((error) => console.error("MongoDB connection error:", error));
+// app.use(express.json());
+// // Import Routes
+// // const alertRoutes = require("./routes/alertRoutes");
+// // const bookingRoutes = require("./routes/bookingRoutes");
+// const busRoutes = require("./routes/busRoutes"); // Import bus routes
+// // const metricRoutes = require("./routes/metricRoutes"); // Ensure this is uncommented and correctly importing your route
+// // const userRoutes = require("./routes/userRoutes");
+
+// // Use Routes
+// // app.use("/api/alerts", alertRoutes);
+// // app.use("/api/bookingRoutes", bookingRoutes);
+// app.use('/api', busRoutes); // Use bus routes
+// // app.use("/api/metrics", metricRoutes); // Ensure this is correctly uncommented
+// // app.use("/api/users", userRoutes);
+
+// // Start the server
+// const PORT = process.env.PORT || 5000;
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
+// Load environment variables
+dotenv.config();
+
+const app = express();
 app.use(cors());
+app.use(express.json());
 
-// Dummy bus data
-const busData = [
-  {
-    _id: 1,
-    busNumber: "Bus 101",
-    position: [28.7041, 77.1025],
-    state: "Running",
-    eta: 5,
-    driver: "John",
-    routeId: 1,
-  },
-  {
-    _id: 2,
-    busNumber: "Bus 202",
-    position: [28.7041, 77.2125],
-    state: "Delayed",
-    eta: 10,
-    driver: "Steve",
-    routeId: 1,
-  },
-];
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((error) => console.error("MongoDB connection error:", error));
 
-// API endpoint to get bus data
-app.get("/api/buses", (req, res) => {
-  res.json(busData);
-});
+// Import Routes
+const busRoutes = require("./routes/busRoutes"); // Import bus routes
 
+// Use Routes
+app.use("/api/buses", busRoutes); // Ensure the route is correct
+
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

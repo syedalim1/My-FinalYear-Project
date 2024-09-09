@@ -7,12 +7,11 @@ import {
   Slider,
   Card,
   Modal,
-  notification,
   Tag,
   Checkbox,
 } from "antd";
 import { StarOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
-import busData from "./busData.json";
+import axios from "axios"; // Add axios to make API requests
 import "./BusesPage.css";
 import Header from "../Component/shared/Header";
 import Footer from "../Component/shared/Footer";
@@ -30,22 +29,23 @@ const BusesPage = () => {
   );
   const [amenitiesFilter, setAmenitiesFilter] = useState([]);
 
-  // Polling every 15 seconds for real-time seat availability
+  // Fetch bus data from the backend API
   useEffect(() => {
-    const fetchBusData = () => {
-      const updatedBuses = busData.map((bus) => ({
-        ...bus,
-        availableSeats: Math.max(
-          0,
-          bus.availableSeats - Math.floor(Math.random() * 3)
-        ),
-      }));
-      setBuses(updatedBuses);
-      setFilteredBuses(updatedBuses); // Sync the filtered list with updated buses
+    const fetchBusData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/buses"); // Make sure this URL matches your backend route
+        const data = response.data;
+        setBuses(data); // Set bus data
+        setFilteredBuses(data); // Sync filtered data
+      } catch (error) {
+        console.error("Error fetching bus data:", error);
+      }
     };
 
-    fetchBusData(); // Initial data fetch
-    const interval = setInterval(fetchBusData, 15000); // Real-time updates every 15 seconds
+    fetchBusData(); // Initial fetch
+
+    // Polling every 15 seconds for real-time seat availability
+    const interval = setInterval(fetchBusData, 15000); // Fetch every 15 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
@@ -180,7 +180,6 @@ const BusesPage = () => {
               <Option value="rating">Rating</Option>
             </Select>
 
-            {/* Checkbox for filtering by amenities */}
             <Checkbox.Group
               style={{ marginTop: 20 }}
               options={["WiFi", "AC", "Charging Ports"]}
@@ -250,7 +249,7 @@ const BusesPage = () => {
               ),
             },
           ]}
-          scroll={{ x: "100%" }} // Make the table scrollable horizontally for mobile
+          scroll={{ x: "100%" }}
         />
       </div>
       <Footer />

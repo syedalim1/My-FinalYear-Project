@@ -39,6 +39,9 @@ function Header() {
           <li>
             <Link to="/admindashboard">Admin</Link>
           </li>
+          <li>
+            <Link to="/Bookingform">BookingForm</Link>
+          </li>
         </ul>
       </nav>
       <div className={`mobile-menu ${menuOpen ? "active" : ""}`}>

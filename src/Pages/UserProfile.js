@@ -5,10 +5,13 @@ const UserProfile = () => {
   const [profileData, setProfileData] = useState({ name: "", email: "" });
 
   const updateProfile = async () => {
-    const response = await axios.post("/api/user/profile", {
-      userId: "123",
-      newProfileData: profileData,
-    });
+    const response = await axios.post(
+      "http://localhost:5000/api/user/profile",
+      {
+        userId: "123",
+        newProfileData: profileData,
+      }
+    );
     console.log(response.data);
   };
 

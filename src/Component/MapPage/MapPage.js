@@ -15,7 +15,7 @@ const containerStyle = {
   height: "500px",
 };
 
-// Dummy route and bus data
+// Dummy route data
 const routes = [
   {
     id: 1,
@@ -43,29 +43,25 @@ const routes = [
   },
 ];
 
-// Dummy bus data
-const busPositions = [
-  {
-    id: 1,
-    busNumber: "Bus 101",
-    position: { lat: 28.7041, lng: 77.1025 },
-    state: "Running",
-    eta: 5,
-    driver: "John",
-  },
-  {
-    id: 2,
-    busNumber: "Bus 202",
-    position: { lat: 28.7041, lng: 77.2125 },
-    state: "Delayed",
-    eta: 10,
-    driver: "Steve",
-  },
-];
-
 const MapPage = () => {
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [selectedBus, setSelectedBus] = useState(null);
+  const [busPositions, setBusPositions] = useState([]); // Define state for bus positions
+
+  // Fetch bus data from backend using useEffect
+  useEffect(() => {
+    const fetchBusData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/buses"); // API call to backend
+        const data = await response.json();
+        setBusPositions(data); // Update bus positions from the API
+      } catch (error) {
+        console.error("Error fetching bus data:", error);
+      }
+    };
+
+    fetchBusData(); // Call the function to fetch bus data
+  }, []);
 
   const handleRouteClick = (route) => {
     setSelectedRoute(route);
@@ -98,9 +94,10 @@ const MapPage = () => {
         </div>
 
         <div className="map-area">
-          <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+          <LoadScript
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+          >
             {" "}
-            {/* Add your Google Maps API key */}
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={
