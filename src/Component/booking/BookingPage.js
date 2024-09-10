@@ -8,13 +8,19 @@ import {
   Modal,
   notification,
   Checkbox,
+  Rate,
+  Pagination,
+  Tooltip,
+  Progress,
+  Switch,
 } from "antd";
 import axios from "axios";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./BookingPage.css";
+import { useNavigate } from "react-router-dom";
 import Header from "../shared/Header";
 import Footer from "../shared/Footer";
+import "./BookingPage.css"; // Assuming custom CSS for more creativity
 
 const { Option } = Select;
 
@@ -22,12 +28,17 @@ const BookingPage = () => {
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
   const [isBookingModalVisible, setIsBookingModalVisible] = useState(false);
-  const [selectedSeats, setSelectedSeats] = useState([]);
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [progress, setProgress] = useState(50); // For progress bar
+  const [darkMode, setDarkMode] = useState(false); // For Dark/Light mode toggle
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchBuses();
@@ -55,89 +66,170 @@ const BookingPage = () => {
   const handleSelectBus = (busId) => {
     setSelectedBus(busId);
     setIsBookingModalVisible(true);
-  };
-
-  const handleConfirmBooking = () => {
-    if (!termsAccepted) {
-      notification.error({
-        message: "Please accept the terms and conditions",
-      });
-      return;
-    }
-
-    notification.success({
-      message: "Booking Confirmed",
-      description: `Your booking for bus ${selectedBus} has been confirmed.`,
-    });
-    setIsBookingModalVisible(false);
+    setProgress(75); // Update progress when bus is selected
   };
 
   const applyPromoCode = () => {
     if (promoCode === "DISCOUNT10") {
-      setDiscount(10); // Apply a 10% discount
+      setDiscount(10);
       notification.success({ message: "Promo code applied: 10% discount!" });
     } else {
       notification.error({ message: "Invalid promo code!" });
     }
   };
 
+  const handleBooking = () => {
+    if (!termsAccepted) {
+      notification.error({
+        message: "You must accept the terms and conditions.",
+      });
+      return;
+    }
+    navigate(`/Bookingform`, {
+      state: {
+        busId: selectedBus,
+        discount: discount,
+        promoCode: promoCode,
+      },
+    });
+    setIsBookingModalVisible(false);
+  };
+
   const selectedBusDetails = buses.find((bus) => bus.id === selectedBus);
+  const filteredBuses = buses.filter(
+    (bus) =>
+      bus.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      bus.route.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const paginatedBuses = filteredBuses.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   return (
-    <div className="booking-page">
+    <div className={`booking-page ${darkMode ? "dark-mode" : ""}`}>
       <Header />
-      <Card title="Search for Buses" className="search-card">
+
+      {/* Theme Toggle */}
+      <div className="theme-toggle">
+        <span>🌞 Light Mode</span>
+        <Switch
+          checked={darkMode}
+          onChange={() => setDarkMode(!darkMode)}
+          checkedChildren="🌙 Dark Mode"
+          unCheckedChildren="🌞 Light Mode"
+        />
+      </div>
+
+      <Card
+        title="Search for Buses"
+        className="search-card"
+        style={{ backgroundColor: "#f0f2f5", borderRadius: "15px" }}
+      >
+        <Input
+          placeholder="Search by name or route"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          style={{ borderRadius: "10px", marginBottom: "10px" }}
+        />
         <Select
-          style={{ width: "100%" }}
+          style={{ width: "100%", borderRadius: "10px" }}
           placeholder="Select a bus"
           onChange={handleSelectBus}
         >
-          {buses.map((bus) => (
+          {filteredBuses.map((bus) => (
             <Option key={bus.id} value={bus.id}>
-              {bus.name}
+              <div className="bus-option">
+                <img src={bus.image} alt={bus.name} className="bus-img" />
+                {bus.name}
+              </div>
             </Option>
           ))}
         </Select>
         <Button
           type="primary"
-          onClick={() => {
-            /* Search logic */
-          }}
+          style={{ marginTop: "10px", borderRadius: "10px" }}
         >
           Search
         </Button>
       </Card>
 
-      <Card title="Available Buses" className="bus-list-card">
+      {/* Progress Indicator */}
+      <Progress
+        percent={progress}
+        status="active"
+        style={{ marginTop: "20px" }}
+      />
+
+      <Card
+        title="Available Buses"
+        className="bus-list-card"
+        style={{
+          marginTop: "20px",
+          backgroundColor: "#e6f7ff",
+          borderRadius: "15px",
+        }}
+      >
         <Table
-          dataSource={buses}
+          dataSource={paginatedBuses}
           columns={[
-            { title: "Bus Name", dataIndex: "name", key: "name" },
+            {
+              title: "Bus Name",
+              dataIndex: "name",
+              key: "name",
+              render: (text, record) => (
+                <a
+                  onClick={() => handleSelectBus(record.id)}
+                  style={{ color: "#1890ff" }}
+                >
+                  {text}
+                </a>
+              ),
+            },
             { title: "Type", dataIndex: "type", key: "type" },
             { title: "Route", dataIndex: "route", key: "route" },
             {
               title: "Price",
               dataIndex: "price",
               key: "price",
-              render: (text) => `₹${text}`,
+              render: (text) => (
+                <span style={{ color: "#ff4d4f" }}>₹{text}</span>
+              ),
             },
             {
               title: "Available Seats",
               dataIndex: "availableSeats",
               key: "availableSeats",
             },
-            { title: "Rating", dataIndex: "rating", key: "rating" },
+            {
+              title: "Rating",
+              dataIndex: "rating",
+              key: "rating",
+              render: (rating) => <Rate disabled defaultValue={rating} />,
+            },
           ]}
           pagination={false}
           rowKey="id"
         />
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={filteredBuses.length}
+          onChange={(page) => setCurrentPage(page)}
+          style={{ marginTop: "20px", textAlign: "center" }}
+        />
       </Card>
 
-      <Card title="Bus Route Map" className="map-card">
+      <Card
+        title="Bus Route Map"
+        className="map-card"
+        style={{ marginTop: "20px", borderRadius: "15px", overflow: "hidden" }}
+      >
         <MapContainer
           center={[51.505, -0.09]}
           zoom={13}
-          style={{ height: "400px", width: "100%" }}
+          style={{ height: "400px", width: "100%", borderRadius: "15px" }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -160,58 +252,59 @@ const BookingPage = () => {
       </Card>
 
       <Modal
-        title="Book Your Seat"
+        title="Confirm Booking"
         visible={isBookingModalVisible}
-        onOk={handleConfirmBooking}
+        onOk={handleBooking}
         onCancel={() => setIsBookingModalVisible(false)}
+        okText="Confirm"
+        cancelText="Cancel"
+        style={{ borderRadius: "15px" }}
       >
-        <div className="seat-selection">
-          <h3>Selected Bus: {selectedBusDetails?.name || "None"}</h3>
-          <p>Route: {selectedBusDetails?.route || "N/A"}</p>
-          <p>Price: ₹{selectedBusDetails ? selectedBusDetails.price : "0"}</p>
-          <p>Available Seats: {selectedBusDetails?.availableSeats || "N/A"}</p>
-          <p>
-            Amenities: {selectedBusDetails?.amenities?.join(", ") || "None"}
-          </p>
-
-          <Input
-            placeholder="Enter Promo Code"
-            value={promoCode}
-            onChange={(e) => setPromoCode(e.target.value)}
-            className="promo-input"
-          />
-          <Button onClick={applyPromoCode} className="promo-button">
-            Apply
-          </Button>
-
-          <Checkbox
-            checked={termsAccepted}
-            onChange={(e) => setTermsAccepted(e.target.checked)}
-          >
-            I accept the terms and conditions
-          </Checkbox>
-
-          <div className="booking-summary">
-            <h4>Booking Summary:</h4>
-            <p>Seats: {selectedSeats.join(", ")}</p>
+        {selectedBusDetails && (
+          <div>
             <p>
-              Total Price: ₹
-              {selectedBusDetails
-                ? (selectedBusDetails.price * (1 - discount / 100)).toFixed(2)
-                : "0"}
+              <strong>Bus Name:</strong> {selectedBusDetails.name}
             </p>
-            <Select
-              value={paymentMethod}
-              onChange={(value) => setPaymentMethod(value)}
-              className="payment-method-select"
+            <p>
+              <strong>Route:</strong> {selectedBusDetails.route}
+            </p>
+            <p>
+              <strong>Price:</strong> ₹{selectedBusDetails.price}
+            </p>
+            <p>
+              <strong>Available Seats:</strong>{" "}
+              {selectedBusDetails.availableSeats}
+            </p>
+            <p>
+              <strong>Rating:</strong>{" "}
+              <Rate disabled defaultValue={selectedBusDetails.rating} />
+            </p>
+            <Tooltip title="Enter your promo code here">
+              <Input
+                placeholder="Enter promo code"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value)}
+                style={{ marginTop: "10px", borderRadius: "10px" }}
+              />
+            </Tooltip>
+            <Button
+              type="primary"
+              onClick={applyPromoCode}
+              style={{ marginTop: "10px", borderRadius: "10px" }}
             >
-              <Option value="card">Credit/Debit Card</Option>
-              <Option value="wallet">E-Wallet</Option>
-              <Option value="upi">UPI</Option>
-            </Select>
+              Apply Promo Code
+            </Button>
+            <Checkbox
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+              style={{ marginTop: "10px", color: "black" }}
+            >
+              I accept the terms and conditions
+            </Checkbox>
           </div>
-        </div>
+        )}
       </Modal>
+
       <Footer />
     </div>
   );

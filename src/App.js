@@ -8,8 +8,20 @@ import MapPage from "./Component/MapPage/MapPage";
 import AdminDashboard from "./Component/admin/AdminDashboard";
 import BookingPage from "./Component/booking/BookingPage";
 import BookingForm from "./Component/booking/BookingForm";
+import ConfirmationDetails from "./Component/booking/ConfirmationDetails";
 
 function App() {
+  const bookingData = {
+    name: "John Doe",
+    email: "john@example.com",
+    phone: "1234567890",
+    bookingDate: new Date(),
+    selectedSeats: [1, 2],
+    paymentMethod: "card",
+    travelInsurance: true,
+    totalPrice: 500,
+  };
+
   return (
     <Router>
       <Routes>
@@ -21,6 +33,11 @@ function App() {
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/bookingpage" element={<BookingPage />} />
         <Route path="/Bookingform" element={<BookingForm />} />
+        <Route path="/book/:busId" element={<BookingForm />} />
+        <Route
+          path="/confirmation"
+          element={<ConfirmationDetails bookingData={bookingData} />}
+        />
       </Routes>
     </Router>
   );

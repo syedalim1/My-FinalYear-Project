@@ -1,0 +1,13 @@
+.confirmation-details {
+  padding: 20px;
+}
+
+.confirmation-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirmation-buttons .ant-btn {
+  width: 48%;
+}

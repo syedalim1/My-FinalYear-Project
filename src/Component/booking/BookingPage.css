@@ -1,194 +1,152 @@
-/* General Styles */
-body {
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
+/* BookingPage.css */
 
 .booking-page {
-  padding-bottom: 10px;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #f0f2f5;
 }
 
-.card {
-  margin-bottom: 15px;
+.search-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-.ant-card {
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+.search-card .ant-select {
+  border-radius: 10px;
 }
 
-.ant-select,
-.ant-input,
-.ant-btn {
-  border-radius: 6px;
+.search-card .ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  border-radius: 10px;
+}
+
+.bus-list-card {
+  background-color: #e6f7ff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.bus-list-card .ant-table {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.bus-list-card .ant-table a {
+  color: #1890ff;
+}
+
+.bus-list-card .ant-table .ant-table-cell {
+  border: 1px solid #d9d9d9;
+}
+
+.map-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.map-card .leaflet-container {
+  border-radius: 15px;
+}
+
+.ant-modal-content {
+  border-radius: 15px;
+}
+
+.ant-input {
+  border-radius: 10px;
+}
+
+.ant-checkbox-wrapper {
+  font-size: 14px;
 }
 
 .ant-btn-primary {
-  background-color: #1890ff;
-  border-color: #1890ff;
+  background-color: #52c41a;
+  border-color: #52c41a;
+  border-radius: 10px;
 }
 
 .ant-btn-primary:hover {
-  background-color: #40a9ff;
-  border-color: #40a9ff;
+  background-color: #43a047;
+  border-color: #43a047;
 }
 
-/* Seat Layout Styles */
-.seat-layout {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin: 20px 0;
+.ant-btn {
+  border-radius: 10px;
 }
 
-.seat {
-  width: 50px;
-  height: 50px;
-  background-color: #e0e0e0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+.ant-modal-footer {
+  border-top: 1px solid #d9d9d9;
 }
 
-.seat:hover {
-  background-color: #d9d9d9;
-  transform: scale(1.05);
+.ant-rate-star {
+  color: #fadb14;
 }
 
-.seat.selected {
-  background-color: #4caf50;
-  color: #fff;
-  border-color: #4caf50;
-}
-
-.seat.booked {
-  background-color: #f44336;
-  color: #fff;
-  cursor: not-allowed;
-}
-
-/* Promo Code Input and Button */
-.promo-input {
-  margin-top: 10px;
-}
-
-.promo-button {
-  margin-top: 10px;
-  width: 100%;
-  background-color: #4caf50;
-  border-color: #4caf50;
-  color: #fff;
-}
-
-.promo-button:hover {
-  background-color: #45a049;
-}
-
-/* Booking Summary */
-.booking-summary {
-  margin-top: 20px;
-}
-
-.booking-summary h4 {
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.booking-summary p {
-  margin: 5px 0;
-  color: #555;
-}
-
-.payment-method-select {
-  width: 100%;
-  margin-top: 10px;
-}
-
-/* Modal Styles */
-.ant-modal-content {
-  border-radius: 8px;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-.ant-modal-header {
-  text-align: center;
-  background-color: #fafafa;
-}
-
-/* Map Styles */
-.leaflet-container {
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Reviews Styles */
-.review-card {
-  background-color: #ffffff;
-}
-
-.review-card .ant-table {
-  background-color: #f9f9f9;
-}
-
-.review-card .ant-table-thead > tr > th {
-  background-color: #1890ff;
-  color: #fff;
-  font-weight: bold;
-}
-
-.review-card .ant-table-tbody > tr > td {
-  background-color: #fff;
-  color: #555;
-}
-
-.review-card .ant-table-tbody > tr:nth-child(odd) > td {
-  background-color: #f1f1f1;
-}
-
-.review-card .ant-table-tbody > tr:hover > td {
-  background-color: #e6f7ff;
-}
-
-/* Mobile Styles */
 @media (max-width: 768px) {
-  .seat-layout {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .seat {
-    width: 40px;
-    height: 40px;
-  }
-
   .search-card,
-  .map-card,
-  .review-card {
-    margin-bottom: 10px;
+  .bus-list-card,
+  .map-card {
+    padding: 10px;
+  }
+  
+  .search-card .ant-select,
+  .search-card .ant-btn-primary,
+  .bus-list-card .ant-table,
+  .map-card .leaflet-container {
+    width: 100%;
   }
 }
+.booking-page {
+  padding: 20px;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+}
 
-@media (max-width: 480px) {
-  .seat-layout {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.booking-page.dark-mode {
+  background-color: #1c1c1c;
+  color: #ffffff;
+}
 
-  .seat {
-    width: 35px;
-    height: 35px;
-  }
+.search-card, .bus-list-card, .map-card {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
 
-  .booking-summary p {
-    font-size: 14px;
-  }
+.bus-option {
+  display: flex;
+  align-items: center;
+}
 
-  .payment-method-select {
-    font-size: 14px;
-  }
+.bus-img {
+  width: 50px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.theme-toggle {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.theme-toggle span {
+  margin-right: 10px;
+}
+
+.ant-btn {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+.ant-btn:hover {
+  background-color: #40a839;
+  border-color: #40a839;
 }
