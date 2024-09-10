@@ -1,53 +1,47 @@
-// seedData.js
+// seed.js
+
 const mongoose = require("mongoose");
-const Bus = require("./models/Bus"); // Import the Bus model
+const dotenv = require("dotenv");
 
-// MongoDB connection
+// Load environment variables from .env
+dotenv.config();
+
+// Import the Alert model
+const Alert = require("./models/Alert");
+
+// Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.error("MongoDB connection error:", error));
+  .connect(
+    process.env.MONGODB_URI || "mongodb://localhost:27017/busTrackingDB",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-const seedBuses = async () => {
+// Dummy alerts to seed the database
+const dummyAlerts = [
+  { message: "Bus 101 delayed by 10 minutes" },
+  { message: "Bus 202 delayed by 5 minutes" },
+  { message: "Route 303 maintenance scheduled for tomorrow" },
+  { message: "Bus 404 added to Route 101" },
+  { message: "Bus 505 rerouted due to roadwork" },
+];
+
+// Function to seed the database with dummy alerts
+const seedDatabase = async () => {
   try {
-    // Define some sample buses
-    const buses = [
-      {
-        name: "Luxury Bus",
-        type: "Luxury",
-        price: 1200,
-        availableSeats: 15,
-        route: "New York - Washington",
-        rating: 4.5,
-        departureTime: "10:00 AM",
-        arrivalTime: "2:00 PM",
-        amenities: ["WiFi", "AC"],
-      },
-      {
-        name: "Sleeper Bus",
-        type: "Sleeper",
-        price: 1000,
-        availableSeats: 5,
-        route: "Los Angeles - San Francisco",
-        rating: 4.8,
-        departureTime: "9:00 PM",
-        arrivalTime: "6:00 AM",
-        amenities: ["WiFi", "AC", "Charging Ports"],
-      },
-      // Add more buses as needed...
-    ];
-
-    // Insert bus data into MongoDB
-    await Bus.insertMany(buses);
-    console.log("Bus data seeded successfully");
-    mongoose.connection.close();
-  } catch (error) {
-    console.error("Error seeding bus data:", error);
+    await Alert.deleteMany(); // Clear existing data
+    await Alert.insertMany(dummyAlerts); // Insert dummy alerts
+    console.log("Dummy alerts added");
+  } catch (err) {
+    console.error("Error seeding alerts:", err);
+  } finally {
     mongoose.connection.close();
   }
 };
 
-seedBuses();
+// Run the seed function
+seedDatabase();

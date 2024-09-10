@@ -1,8 +1,19 @@
+// models/Alert.js
+
 const mongoose = require("mongoose");
 
+// Define the Alert schema
 const alertSchema = new mongoose.Schema({
-  message: { type: String, required: true },
-  timestamp: { type: Date, default: Date.now },
+  message: {
+    type: String,
+    required: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model("Alert", alertSchema);
+// Create and export the Alert model
+const Alert = mongoose.model("Alert", alertSchema);
+module.exports = Alert;

@@ -1,4 +1,4 @@
-/* MapPage General Styles */
+/* General Styles */
 .map-page {
   display: flex;
   flex-direction: column;
@@ -12,10 +12,15 @@
   padding: 20px;
 }
 
+.dark-mode {
+  background-color: #333;
+  color: white;
+}
+
 /* Route List Styling */
 .route-list {
   width: 20%;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -40,7 +45,8 @@
 }
 
 .route-list li:hover {
-  background-color: #e6e6fa;
+  background-color: #6a11cb;
+  color: white;
 }
 
 /* Map Area Styling */
@@ -50,7 +56,34 @@
   margin-left: 20px;
 }
 
-/* Responsive Styling */
+/* Control Buttons */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.refresh-btn,
+.dark-mode-btn {
+  padding: 10px 15px;
+  background-color: #6a11cb;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.refresh-btn:hover,
+.dark-mode-btn:hover {
+  background-color: #4114b6;
+}
+
+.controls label {
+  margin-right: 10px;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
   .map-container {
     flex-direction: column;

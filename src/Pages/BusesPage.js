@@ -9,12 +9,15 @@ import {
   Modal,
   Tag,
   Checkbox,
+  Rate,
 } from "antd";
 import { StarOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
-import axios from "axios"; // Add axios to make API requests
+import axios from "axios";
 import "./BusesPage.css";
 import Header from "../Component/shared/Header";
 import Footer from "../Component/shared/Footer";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const { Option } = Select;
 
@@ -33,24 +36,22 @@ const BusesPage = () => {
   useEffect(() => {
     const fetchBusData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/buses"); // Make sure this URL matches your backend route
+        const response = await axios.get("http://localhost:5000/api/buses");
         const data = response.data;
-        setBuses(data); // Set bus data
-        setFilteredBuses(data); // Sync filtered data
+        setBuses(data);
+        setFilteredBuses(data);
       } catch (error) {
         console.error("Error fetching bus data:", error);
       }
     };
 
-    fetchBusData(); // Initial fetch
+    fetchBusData();
+    const interval = setInterval(fetchBusData, 15000); // Polling every 15 seconds
 
-    // Polling every 15 seconds for real-time seat availability
-    const interval = setInterval(fetchBusData, 15000); // Fetch every 15 seconds
-
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
-  // Filter buses based on type, price range, and amenities
+  // Filter and sort buses
   const filterBuses = (busType, priceRange, amenitiesFilter) => {
     let filtered = buses;
     if (busType) {
@@ -103,7 +104,6 @@ const BusesPage = () => {
     setFilteredBuses(sortedBuses);
   };
 
-  // Toggle favorite and store it in localStorage for persistence
   const toggleFavorite = (busId) => {
     let updatedFavorites;
     if (favorites.includes(busId)) {
@@ -115,7 +115,6 @@ const BusesPage = () => {
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
-  // Show modal with bus details
   const showBusDetails = (bus) => {
     Modal.info({
       title: `${bus.name} Details`,
@@ -129,6 +128,19 @@ const BusesPage = () => {
           <p>
             Rating: {bus.rating} <StarOutlined />
           </p>
+          <div>
+            <MapContainer
+              center={[bus.location.lat, bus.location.lng]}
+              zoom={13}
+              style={{ height: "200px", width: "100%" }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Marker position={[bus.location.lat, bus.location.lng]} />
+            </MapContainer>
+          </div>
         </div>
       ),
       onOk() {},
@@ -180,8 +192,8 @@ const BusesPage = () => {
               <Option value="rating">Rating</Option>
             </Select>
 
-            <Checkbox.Group
-              style={{ marginTop: 20 }}
+            <Checkbox.Group className="option"
+              style={{ marginTop: 20, }}
               options={["WiFi", "AC", "Charging Ports"]}
               onChange={handleAmenityChange}
             />
@@ -195,13 +207,16 @@ const BusesPage = () => {
               title: "Bus Name",
               dataIndex: "name",
               key: "name",
+              render: (name) => (
+                <strong style={{ color: "#ff5722" }}>{name}</strong>
+              ),
             },
             { title: "Type", dataIndex: "type", key: "type" },
             {
               title: "Price",
               dataIndex: "price",
               key: "price",
-              render: (price) => `₹${price}`,
+              render: (price) => <strong>₹{price}</strong>,
             },
             {
               title: "Available Seats",

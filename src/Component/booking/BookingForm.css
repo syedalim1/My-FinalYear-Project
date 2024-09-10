@@ -1,23 +1,47 @@
+/* General styles for the booking form */
 .booking-form {
-  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 0 auto;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  margin: 20px auto;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.booking-form.dark-mode {
+  background: linear-gradient(135deg, #1d1d1d 0%, #333333 100%);
+  color: white;
+}
+
+.booking-form:hover {
+  transform: scale(1.02);
 }
 
 .booking-form h3 {
-  font-size: 24px;
+  font-size: 28px;
   color: #fff;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .input-field {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   width: 100%;
+  background-color: white;
 }
 
+.input-field.error {
+  border: 1px solid red;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
+/* Button styles */
 .submit-button {
   width: 100%;
   background-color: #ff7f50;
@@ -25,20 +49,12 @@
   color: #fff;
   font-size: 16px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
   transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
   background-color: #ff6347;
-  color: #fff;
-}
-
-.input-field .ant-input,
-.input-field .ant-select-selector,
-.input-field .ant-picker {
-  border-radius: 5px;
-  padding: 10px;
 }
 
 .submit-button:disabled {
@@ -50,6 +66,130 @@
   color: white;
 }
 
-.ant-checkbox + span {
+/* Promo Code styles */
+.promo-code {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.promo-code .ant-input-number {
+  flex: 1;
+}
+
+.promo-code button {
+  margin-left: 10px;
+}
+
+/* Language Selector */
+.language-select {
+  margin-bottom: 15px;
+  background-color: white;
+}
+
+/* Dark Mode Toggle styles */
+.dark-mode-toggle {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dark-mode-toggle span {
   color: white;
+}
+
+/* Ant Design Overrides */
+.ant-progress {
+  margin-bottom: 20px;
+}
+
+.ant-select-selector {
+  color: black;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: white;
+}
+
+.ant-modal {
+  top: 20px;
+}
+
+.ant-checkbox-wrapper {
+  color: white;
+}
+
+.ant-rate {
+  font-size: 24px;
+}
+
+.rating-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Seat Selection Map */
+.seat-map {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  text-align: center;
+  line-height: 38px;
+  cursor: pointer;
+}
+
+.seat.selected {
+  background-color: #ff7f50;
+  border-color: #ff6347;
+  color: white;
+}
+
+.seat.unavailable {
+  background-color: #cccccc;
+  border-color: #999999;
+  cursor: not-allowed;
+}
+
+/* Responsive styles for smaller devices */
+@media (max-width: 480px) {
+  .booking-form {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .submit-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .seat {
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+  }
+}
+.geolocation {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.geolocation h4 {
+  margin-bottom: 10px;
+}
+
+.geolocation p {
+  margin: 5px 0;
 }

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table, Input, Select, Modal, notification, Card } from "antd";
+import { Button, Table, Card, Progress } from "antd";
 import axios from "axios";
-import "./AdminDashboard.css";
 import Header from "../shared/Header";
 import Footer from "../shared/Footer";
-
-const { Option } = Select;
+import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [alerts, setAlerts] = useState([]);
@@ -13,13 +11,9 @@ const AdminDashboard = () => {
   const [performanceMetrics, setPerformanceMetrics] = useState({});
   const [users, setUsers] = useState([]);
   const [bookings, setBookings] = useState([]);
-  const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
-  const [isReportModalVisible, setIsReportModalVisible] = useState(false);
-  const [newAlert, setNewAlert] = useState("");
-  const [selectedRoute, setSelectedRoute] = useState(null);
 
+  // Fetch data on component mount
   useEffect(() => {
-    // Fetch initial data
     fetchAlerts();
     fetchBusRoutes();
     fetchPerformanceMetrics();
@@ -27,87 +21,61 @@ const AdminDashboard = () => {
     fetchBookings();
   }, []);
 
+  // Fetch Alerts from backend
   const fetchAlerts = async () => {
     try {
-      const response = await axios.get("/api/alerts");
+      const response = await axios.get("http://localhost:5000/api/alerts");
       setAlerts(response.data);
     } catch (error) {
       console.error("Error fetching alerts:", error);
     }
   };
 
+  // Fetch Bus Routes from backend
   const fetchBusRoutes = async () => {
     try {
-      const response = await axios.get("/api/routes");
+      const response = await axios.get("http://localhost:5000/api/routes");
       setBusRoutes(response.data);
     } catch (error) {
       console.error("Error fetching bus routes:", error);
     }
   };
 
+  // Fetch Performance Metrics from backend
   const fetchPerformanceMetrics = async () => {
     try {
-      const response = await axios.get("/api/metrics");
+      const response = await axios.get("http://localhost:5000/api/metrics");
       setPerformanceMetrics(response.data);
     } catch (error) {
       console.error("Error fetching performance metrics:", error);
     }
   };
 
+  // Fetch Users from backend
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("/api/users");
+      const response = await axios.get("http://localhost:5000/api/users");
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
 
+  // Fetch Bookings from backend
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("/api/bookings");
+      const response = await axios.get("http://localhost:5000/api/bookings");
       setBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
     }
   };
 
-  const handleSendAlert = async () => {
-    try {
-      await axios.post("/api/alerts", { message: newAlert });
-      notification.success({
-        message: "Alert Sent",
-        description: "The alert has been successfully sent.",
-      });
-      setIsAlertModalVisible(false);
-      setNewAlert("");
-      fetchAlerts();
-    } catch (error) {
-      notification.error({
-        message: "Error",
-        description: "Failed to send alert.",
-      });
-    }
-  };
-
-  const handleReportGeneration = () => {
-    // Logic for generating reports
-    setIsReportModalVisible(false);
-  };
-
   return (
     <>
       <Header />
       <div className="admin-dashboard">
-        <div className="dashboard-header">
-          <Button type="primary" onClick={() => setIsAlertModalVisible(true)}>
-            Send Alert
-          </Button>
-          <Button type="default" onClick={() => setIsReportModalVisible(true)}>
-            Generate Report
-          </Button>
-        </div>
-
+        {/* Alerts Section */}
         <Card title="Real-time Alerts">
           <Table
             dataSource={alerts}
@@ -118,91 +86,63 @@ const AdminDashboard = () => {
           />
         </Card>
 
-        <Card title="Bus Routes Management">
-          <Select
-            style={{ width: "100%" }}
-            placeholder="Select a route to manage"
-            onChange={(value) => setSelectedRoute(value)}
-          >
-            {busRoutes.map((route) => (
-              <Option key={route.id} value={route.id}>
-                {route.name}
-              </Option>
-            ))}
-          </Select>
-          <Button
-            type="primary"
-            onClick={() => {
-              /* Add/Update/Delete route logic */
-            }}
-          >
-            Manage Route
-          </Button>
+        {/* Bus Routes Section */}
+        <Card title="Bus Routes">
+          <Table
+            dataSource={busRoutes}
+            columns={[
+              { title: "Route Name", dataIndex: "name", key: "name" },
+              {
+                title: "Start Time",
+                dataIndex: ["schedule", "start"],
+                key: "schedule.start",
+              },
+              {
+                title: "End Time",
+                dataIndex: ["schedule", "end"],
+                key: "schedule.end",
+              },
+            ]}
+          />
         </Card>
 
+        {/* Performance Metrics Section */}
         <Card title="Bus Performance Metrics">
-          <div>
-            <h3>Real-time Metrics:</h3>
-            <p>On-time Performance: {performanceMetrics.onTimePerformance}</p>
-            <p>Delays: {performanceMetrics.delays}</p>
-            <p>Usage Statistics: {performanceMetrics.usage}</p>
-          </div>
+          <h3>On-time Performance</h3>
+          <Progress percent={performanceMetrics.onTimePerformance} />
+          <h3>Delays</h3>
+          <Progress percent={performanceMetrics.delays} status="exception" />
+          <h3>Usage Statistics</h3>
+          <Progress percent={performanceMetrics.usage} />
         </Card>
 
+        {/* Users Section */}
         <Card title="User Management">
           <Table
             dataSource={users}
             columns={[
               { title: "Name", dataIndex: "name", key: "name" },
               { title: "Email", dataIndex: "email", key: "email" },
-              {
-                title: "Actions",
-                key: "actions",
-                render: (text, record) => (
-                  <Button
-                    onClick={() => {
-                      /* Block/Unblock user logic */
-                    }}
-                  >
-                    Block/Unblock
-                  </Button>
-                ),
-              },
             ]}
           />
         </Card>
 
+        {/* Booking Analytics Section */}
         <Card title="Booking Analytics">
-          <div>
-            <h3>Booking Statistics:</h3>
-            <p>Total Bookings: {bookings.length}</p>
-            <p>Peak Times: {/* Calculate peak times */}</p>
-          </div>
-        </Card>
-
-        {/* Modals */}
-        <Modal
-          title="Send Alert"
-          visible={isAlertModalVisible}
-          onOk={handleSendAlert}
-          onCancel={() => setIsAlertModalVisible(false)}
-        >
-          <Input.TextArea
-            rows={4}
-            value={newAlert}
-            onChange={(e) => setNewAlert(e.target.value)}
-            placeholder="Enter the alert message"
+          <Table
+            dataSource={bookings}
+            columns={[
+              {
+                title: "Bus Route",
+                dataIndex: ["busRoute", "name"],
+                key: "busRoute.name",
+              },
+              { title: "User", dataIndex: ["user", "name"], key: "user.name" },
+              { title: "Booking Time", dataIndex: "time", key: "time" },
+              { title: "Total Seats", dataIndex: "total", key: "total" },
+            ]}
           />
-        </Modal>
-
-        <Modal
-          title="Generate Report"
-          visible={isReportModalVisible}
-          onOk={handleReportGeneration}
-          onCancel={() => setIsReportModalVisible(false)}
-        >
-          <p>Report generation options here...</p>
-        </Modal>
+        </Card>
       </div>
       <Footer />
     </>
